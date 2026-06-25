@@ -48,9 +48,10 @@ func main() {
 
 	e.Renderer = &html.GomponentRendererRender{}
 
-	handlers.HandleWordListOverview(e, queries)
-	handlers.HandleWordListAdd(e, queries)
-	handlers.HandleWordListPick(e, queries)
+	handlers.HandleWordListOverview(e, &queries)
+	handlers.HandleWordListAdd(e, &queries)
+	handlers.HandleWordListPick(e, &queries)
+	handlers.RegisterHealthCheck(e, &queries)
 
 	if err := e.Start(addressDefault); err != nil {
 		e.Logger.Error("failed to start server", "error", err)

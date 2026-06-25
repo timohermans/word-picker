@@ -18,7 +18,7 @@ import (
 
 const urlWordListPick = "/word-list/:id/pick"
 
-func HandleWordListPick(e *echo.Echo, queries db.Queries) {
+func HandleWordListPick(e *echo.Echo, queries *db.Queries) {
 	e.GET(urlWordListPick, func(c *echo.Context) error {
 		ctx := c.Request().Context()
 		idParam := c.Param("id")

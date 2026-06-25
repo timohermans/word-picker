@@ -24,7 +24,7 @@ const (
 	urlWordListAdd = "/word-list/add"
 )
 
-func HandleWordListAdd(e *echo.Echo, queries db.Queries) {
+func HandleWordListAdd(e *echo.Echo, queries *db.Queries) {
 	url := urlWordListAdd
 	e.GET(url, func(c *echo.Context) error {
 		return c.Render(200, "word-list-add", pageWordListAdd(&PagePropsWordListAdd{}))
