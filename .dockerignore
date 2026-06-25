@@ -1,0 +1,14 @@
+.git
+.gitignore
+
+tmp/
+testdata/
+
+.env
+.env.*
+
+*.log
+
+README.md
+
+Dockerfile
