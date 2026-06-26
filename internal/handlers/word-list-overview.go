@@ -24,7 +24,7 @@ func HandleWordListOverview(e *echo.Echo, queries *db.Queries) {
 		wordLists, err := queries.ListWordLists(ctx)
 
 		if err != nil {
-			c.Redirect(302, "/error")
+			return fmt.Errorf("Retrieving word lists: %w", err)
 		}
 
 		return c.Render(200, "home", pageWordListOverview(wordLists))

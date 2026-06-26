@@ -12,8 +12,9 @@ import (
 	"hert/gotest/internal/html"
 	"log"
 	"os"
+	"strings"
 
-	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v5"
 	"github.com/labstack/echo/v5/middleware"
@@ -33,13 +34,13 @@ func init() {
 func main() {
 	ctx := context.Background()
 
-	conn, err := pgx.Connect(ctx, os.Getenv("DATABASE_URL"))
+	pool, err := pgxpool.New(ctx, strings.TrimSpace(os.Getenv("DATABASE_URL")))
 	if err != nil {
 		panic(err)
 	}
-	defer conn.Close(ctx)
+	defer pool.Close()
 
-	queries := *db.New(conn)
+	queries := db.New(pool)
 
 	e := echo.New()
 
@@ -48,10 +49,10 @@ func main() {
 
 	e.Renderer = &html.GomponentRendererRender{}
 
-	handlers.HandleWordListOverview(e, &queries)
-	handlers.HandleWordListAdd(e, &queries)
-	handlers.HandleWordListPick(e, &queries)
-	handlers.RegisterHealthCheck(e, &queries)
+	handlers.HandleWordListOverview(e, queries)
+	handlers.HandleWordListAdd(e, queries)
+	handlers.HandleWordListPick(e, queries)
+	handlers.RegisterHealthCheck(e, queries)
 
 	if err := e.Start(addressDefault); err != nil {
 		e.Logger.Error("failed to start server", "error", err)
