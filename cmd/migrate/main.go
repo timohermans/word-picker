@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"log/slog"
 	"os"
 
@@ -14,7 +15,7 @@ func init() {
 	err := godotenv.Load()
 
 	if err != nil {
-		panic(err)
+		log.Print(err)
 	}
 }
 
