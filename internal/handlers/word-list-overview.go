@@ -15,11 +15,11 @@ import (
 )
 
 const (
-	urlWordListOverview = "/"
+	UrlWordListOverview = "/"
 )
 
 func HandleWordListOverview(e *echo.Echo, queries *db.Queries) {
-	e.GET(urlWordListOverview, func(c *echo.Context) error {
+	e.GET(UrlWordListOverview, func(c *echo.Context) error {
 		ctx := c.Request().Context()
 		wordLists, err := queries.ListWordLists(ctx)
 
