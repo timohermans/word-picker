@@ -95,7 +95,7 @@ func main() {
 	handlers.HandleWordListPick(e, queries)
 	handlers.RegisterHealthCheck(e, queries)
 
-	if err := e.Start(address); err != nil {
+	if err := e.Start(":44"); err != nil {
 		e.Logger.Error("failed to start server", "error", err)
 	}
 }
